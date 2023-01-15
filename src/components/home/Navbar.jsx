@@ -2,11 +2,15 @@ import React from 'react'
 import { Box, styled, Typography } from '@mui/material';
 import { navData } from '../../constants/data';
 
-const BoxContainer = styled(Box)`
-  display:flex;
-  margin:30px 130px 0 110px;
-  justify-content:space-evenly;
-`;
+const BoxContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  margin: '30px 130px 0 110px',
+  overflow:'hidden',
+  justifyContent: 'space-evenly',
+  [theme.breakpoints.down('lg')]: {
+    margin: 0
+  }
+}));
 
 const ChildBoxContainer = styled(Box)`
   text-align:center;
@@ -22,7 +26,7 @@ const Navbar = () => {
   return (
     <BoxContainer>
       {
-        navData.map((item,index) => {
+        navData.map((item, index) => {
           return <ChildBoxContainer key={index}>
             <img src={item.url} alt="dp" width={75} />
             <Text>{item.text}</Text>
