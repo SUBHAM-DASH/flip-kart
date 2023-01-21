@@ -1,16 +1,20 @@
-import React from 'react'
-import { AppBar, Toolbar, styled, Box, Typography } from '@mui/material'
+import React, { useState } from 'react'
+import { AppBar, Toolbar, styled, Box, IconButton, Drawer, ListItem, List, Typography } from '@mui/material';
+import { Menu } from "@mui/icons-material";
 import Search from './Search';
 import CustomButton from './CustomButton';
+import { Link } from 'react-router-dom';
 
 
 const StyledHeader = styled(AppBar)`
     background:#2874f0;
 `;
 
-const Component = styled(Box)`
+const Component = styled(Link)`
     margin-left:12%;
     line-height:0px;
+    text-decoration:none;
+    color:inherit;
 `;
 
 const SubHeading = styled(Typography)`
@@ -24,15 +28,53 @@ const PlusImage = styled('img')({
   marginLeft: "3px"
 });
 
+const CustomButtonWrapper = styled(Box)(({ theme }) => ({
+  margin: '0 5% 0 auto',
+  [theme.breakpoints.down('md')]: {
+    display: 'none'
+  }
+}));
+
+const MenuIcon = styled(IconButton)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.down("md")]: {
+    display: 'block'
+  }
+}));
+
 
 const Header = () => {
   const imageUrl = "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png";
   const subImageUrl = "https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/plus_aef861.png";
+
+  const [open, setOpen] = useState();
+
+  const handleOnClose = () => {
+    setOpen(false);
+  }
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+
   return (
-    <div>
+    <>
       <StyledHeader position="static">
         <Toolbar variant="dense">
-          <Component>
+          <MenuIcon color="inherit" onClick={handleOpen}>
+            <Menu />
+          </MenuIcon>
+          <Drawer open={open} onClose={handleOnClose}>
+            <Box sx={{width:200}} onClick={handleOnClose}>
+              <List>
+                <ListItem>
+                  <CustomButton />
+                </ListItem>
+              </List>
+            </Box>
+          </Drawer>
+          <Component to={"/"}>
             <img src={imageUrl} style={{ width: 75 }} alt='dp' />
             <Box style={{ display: "flex" }}>
               <SubHeading>Expoler&nbsp;
@@ -44,12 +86,12 @@ const Header = () => {
             </Box>
           </Component>
           <Search />
-          <Box>
+          <CustomButtonWrapper>
             <CustomButton />
-          </Box>
+          </CustomButtonWrapper>
         </Toolbar>
       </StyledHeader>
-    </div>
+    </>
   )
 }
 

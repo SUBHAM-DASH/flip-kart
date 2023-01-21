@@ -3,6 +3,7 @@ import React from 'react';
 import Carousel from "react-multi-carousel";
 import 'react-multi-carousel/lib/styles.css';
 import Countdown from 'react-countdown';
+import { Link } from 'react-router-dom';
 
 const responsive = {
   desktop: {
@@ -95,12 +96,14 @@ const Slide = ({ products, title, timer }) => {
         >
           {
             products?.map((item, index) => {
-              return <Box key={index} textAlign="center" style={{ padding: "15px 25px" }}>
-                <Image src={item.url} />
-                <Text sx={{ fontWeight: 600, color: "#212121" }}>{item.title.shortTitle}</Text>
-                <Text sx={{ color: "green" }}>{item.discount}</Text>
-                <Text sx={{ color: "#212121", opacity: ".6" }}>{item.tagline}</Text>
-              </Box>
+              return <Link key={index} style={{ textDecoration: "none" }} to={`/product/${item.id}`}>
+                <Box textAlign="center" style={{ padding: "15px 25px" }}>
+                  <Image src={item.url} />
+                  <Text sx={{ fontWeight: 600, color: "#212121" }}>{item.title.shortTitle}</Text>
+                  <Text sx={{ color: "green" }}>{item.discount}</Text>
+                  <Text sx={{ color: "#212121", opacity: ".6" }}>{item.tagline}</Text>
+                </Box>
+              </Link>
             })
           }
         </Carousel>

@@ -4,14 +4,22 @@ import Header from "./components/Header/Header";
 import Home from "./components/home/Home";
 
 import DataProvider from "./context/DataProvider";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DetailView from "./components/details/DetailView";
 
 const App = () => {
   return (
     <DataProvider>
+      <BrowserRouter>
         <Header />
         <Box style={{ marginTop: 30 }}>
-          <Home />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<DetailView />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
         </Box>
+      </BrowserRouter>
     </DataProvider>
   );
 };

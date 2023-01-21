@@ -5,14 +5,27 @@ import LoginDialog from '../login/LoginDialog';
 import Profile from './Profile';
 import { DataContext } from '../../context/DataProvider';
 
-const Wrapper = styled(Box)`
-    display:flex;
-    margin:0 3% 0 auto;
-    & > button,& > p,& > div{
-      margin-left:35px;
-      font-size:14px;
+// const Wrapper = styled(Box)`
+//     display:flex;
+//     margin:0 3% 0 auto;
+//     & > button,& > p,& > div{
+//       margin-left:35px;
+//       font-size:14px;
+//     }
+// `;
+
+const Wrapper = styled(Box)(({theme})=>({
+  display:'flex',
+    margin:'0 3% 0 auto',
+    '& > *':{
+      marginLeft:'35px',
+      fontSize:'14px'
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'block'
     }
-`;
+}));
+
 
 const Container = styled(Box)`
   display:flex;
@@ -33,7 +46,7 @@ const CustomButton = () => {
 
   const [open, setOpen] = useState(false);
 
-  const { auth,setAuth } = useContext(DataContext);
+  const { auth, setAuth } = useContext(DataContext);
 
   const handleOpen = () => {
     setOpen(true);
