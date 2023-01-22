@@ -4,11 +4,15 @@ import {
   getProductsReducers,
   getProductDetailReducer,
 } from "./reducers/productReducer";
+
+import { cartReducer } from "./reducers/cartReducer";
+
 import thunk from "redux-thunk";
 
 const reducer = combineReducers({
   getProducts: getProductsReducers,
   getProductDetails: getProductDetailReducer,
+  cart: cartReducer,
 });
 
 const middleware = [thunk];
